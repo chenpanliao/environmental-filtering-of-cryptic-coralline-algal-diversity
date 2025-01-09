@@ -1,3 +1,7 @@
-# environmental-filtering-of-cryptic-coralline-algal-diversity
+### Environmental filtering of cryptic coralline algal diversity
 
-This reposite includes the raw data of the research article 'Environmental filtering of cryptic coralline algal diversity' by Zhan et al.
+#### Description
+This repository contains the data and the R scripts used for the analyses in Zhan et al.
+
+#### Citation
+Zhan SH, Huang YT, Liao CP, Liou CY, Liu SL. Environmental filtering of cryptic coralline algal diversity. Submitted.

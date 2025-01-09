@@ -53,7 +53,7 @@ sessionInfo()
 # [109] mvtnorm_1.3-1       tidytree_0.4.6      scales_1.3.0        e1071_1.7-16        purrr_1.0.2         crayon_1.5.3       
 
 #### Data ####
-d0 <- fread("mOTU-composition-8sites-season.csv")
+d0 <- fread("../data/mOTU-composition-8sites-season.csv")
 dd.8sites <- 
   melt(d0, id.vars = c("area", "site", "season"), variable.name = "mOTU", value.name = "count") %>% 
   .[, .(countSum = sum(count)), by = .(area, site, mOTU)] %>% 
@@ -63,7 +63,7 @@ dd.8sites.Y <- dd.8sites[, -1:-2] %>% as.data.frame %>% set_rownames(dd.8sites$s
 
 #### Benthic composition of functional groups differed between the TAR (represented by Datan G2) and the NTCR (represented by Shimen) ####
 d.coverage <- 
-  fread("Table-S2.csv") %>% 
+  fread("../data/Table-S2.csv") %>% 
   setkey(site, season, replicate) %>% 
   .[, Others := 100 - ACA - CCA - MA - Turf - Zoantharia]
 myPerm <- how(plots = Plots(d.coverage$season), nperm = 4999)
@@ -241,7 +241,7 @@ d1 <- cbind(dd.8sites[, !(names(dd.8sites) %in% mOTUs.names), with = F], Y1)
 d1.relative <- cbind(dd.8sites[, !(names(dd.8sites) %in% mOTUs.names), with = F], Y1.relative)
 
 
-phy <- read.tree("mOTU.only.removeSampleCode.nwk")
+phy <- read.tree("../data/mOTU.only.removeSampleCode.nwk")
 phy.drop <- phy %>% drop.tip(phy$tip.label[!(phy$tip.label %in% mOTU.used)]) %T>% plot
 phy.drop$tip.label <- gsub("^mOTU", "", phy.drop$tip.label)
 phy.drop %>% plot

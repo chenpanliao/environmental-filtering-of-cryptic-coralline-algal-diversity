@@ -65,24 +65,26 @@ dd.8sites.Y <- dd.8sites[, -1:-2] %>% as.data.frame %>% set_rownames(dd.8sites$s
 d.coverage <- 
   fread("../data/Table-S2.csv") %>% 
   setkey(site, season, replicate) %>% 
-  .[, Others := 100 - ACA - CCA - MA - Turf - Zoantharia]
+  .[, Others := 100 - CCA - FM - TM - ACA - Zoantharia]
 myPerm <- how(plots = Plots(d.coverage$season), nperm = 4999)
 adonis2(d.coverage[, CCA:Others] %>% as.matrix ~ site, data = d.coverage, 
         permutations = myPerm,
         by = "margin")
-#          Df SumOfSqs      R2      F  Pr(>F)    
-# site      1   1.3345 0.53663 18.529 0.00015 ***
-# Residual 16   1.1523 0.46337                   
-# Total    17   2.4867 1.00000                   
+#          Df SumOfSqs      R2      F Pr(>F)    
+# site      1   1.3345 0.53663 18.529  2e-04 ***
+# Residual 16   1.1523 0.46337                  
+# Total    17   2.4867 1.00000                  
+    
 
 #### Differences in mOTU composition between the TAR and the NTCR; PERMANOVA ####
 adonis2(dd.8sites.Y %>% decostand("hellinger") %>% vegdist ~ area, 
         data = dd.8sites, 
         permutations = 4999)
 #          Df SumOfSqs      R2      F Pr(>F)  
-# Model     1  0.56707 0.39536 3.9233 0.0362 *
+# Model     1  0.56707 0.39536 3.9233 0.0364 *
 # Residual  6  0.86724 0.60464                
 # Total     7  1.43431 1.00000                
+        
 
 #### Rarefaction curves at Datan G2, Shimen, TAR and NTCR ####
 
@@ -132,7 +134,7 @@ reCurve.fig <-
   .[, Method := factor(Method, levels = c("Rarefaction", "Observed", "Extrapolation"))] %>% 
   .[, Order.q := factor(Order.q)] %>% 
   .[, Assemblage := factor(Assemblage, 
-                           levels = c("Taoyuan", "Datan G2", "New Taipei", "Shimen"), 
+                           levels = c("TAR (Taoyuan)", "Datan G2", "NTCR (New Taipei)", "Shimen"), 
                            labels = c("TAR", "Datan G2", "NTCR", "Shimen"))]
 
 reCurve.fig[Order.q == "0" & Method != "Extrapolation"] %>%
@@ -166,7 +168,7 @@ fig.rankAbundance.data <-
     dd22 %>% copy %>% setnames("area", "Assemblage")
   ) %>% 
   .[, Assemblage := factor(Assemblage, 
-                           levels = c("Taoyuan", "Datan G2", "New Taipei", "Shimen"), 
+                           levels = c("TAR (Taoyuan)", "Datan G2", "NTCR (New Taipei)", "Shimen"), 
                            labels = c("TAR", "Datan G2", "NTCR", "Shimen"))]
 fig.rankAbundance.data.labels <-
   fig.rankAbundance.data[, -1] %>% as.matrix %>% set_rownames(fig.rankAbundance.data$Assemblage) %>% 
@@ -192,9 +194,9 @@ fig.rankAbundance.data.labels %>%
   theme_pubr(8, border = T) +
   theme(legend.text = element_text(size = 8), strip.text = element_text(size = 8)) +
   scale_color_manual("Area/Site", values = c("#FE6100", "#FFB000", "#785EF0", "#648FFF")) +
-  scale_linetype_manual(values = 1:2) +
-  scale_shape_manual(values = c(15:18)) +
-  scale_linewidth_manual(values = c(1, 0.5, 1, 0.5)) +
+  scale_linetype_manual("Area/Site", values = 1:2) +
+  scale_shape_manual("Area/Site", values = c(15:18)) +
+  scale_linewidth_manual("Area/Site", values = c(1, 0.5, 1, 0.5)) +
   geom_text_repel(
     data = fig.rankAbundance.data.labels[`Ranked species number` <= 2 | grepl("^[^0-9]", mOTU)],
     aes(label = mOTU, color = Assemblage), 
@@ -231,9 +233,9 @@ totalCount <- dd.8sites.Y %>% colSums %>% sort(decreasing = T) %>% {. / sum(.)} 
 # 0.003164557 0.003164557 0.003164557 0.003164557 0.003164557 0.003164557 0.001582278 0.001582278 0.001582278 0.001582278 
 #     mOTU146     mOTU150 
 # 0.001582278 0.001582278 
+mOTUs.names <- colnames(dd.8sites.Y)
 mOTU.used <- names(totalCount)[1:which(names(totalCount) == "mOTU066")]
 mOTU.used.not <- mOTUs.names[!(mOTUs.names %in% mOTU.used)]
-mOTUs.names <- colnames(dd.8sites.Y)
 
 Y1 <- cbind(dd.8sites.Y[, mOTU.used], Others = dd.8sites.Y[, !(mOTUs.names %in% mOTU.used)] %>% rowSums)
 Y1.relative <- Y1 %>% decostand("total")
@@ -280,10 +282,10 @@ f.heatmap <-
     expand = expansion(c(0,0)),
     labels = 
       c("Others (29 mOTUs)", mOTU.order %>% rev) %>% 
-      gsub("139", "S. erythaerum (139)", .) %>% 
+      gsub("139", "Sporolithon sp. (139)", .) %>% 
       gsub("023", "Harveylithon sp. (023)", .) %>% 
       gsub("014", "H. catarinense (014)", .) %>% 
-      gsub("066", "L. okamurae (066)", .) 
+      gsub("066", "Lithophyllum sp. (066)", .) 
     ) +
   scale_x_discrete("Site", limits = sample.order, expand = expansion(c(0,0)), position = "top") +
   scale_fill_gradientn(

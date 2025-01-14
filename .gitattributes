@@ -1,0 +1,3 @@
+*.R text eol=lf
+*.csv text eol=lf
+*.nwk text eol=lf

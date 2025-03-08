@@ -31,7 +31,7 @@ sessionInfo()
 # [19] multcomp_1.4-26   codetools_0.2-20  sandwich_3.1-1    rstudioapi_0.17.0 lattice_0.22-6    digest_0.6.37    
 # [25] parallel_4.4.2    splines_4.4.2     Matrix_1.7-1      tools_4.4.2       matrixStats_1.4.1
 
-dd3 <- fread("../data/Table-S5.csv", stringsAsFactors = T)
+dd3 <- fread("../data/Table-S7.csv", stringsAsFactors = T)
 # p.type:
 #   p1 = control-1month vs buried-1month
 #   p2 = control-3month vs buried-3month

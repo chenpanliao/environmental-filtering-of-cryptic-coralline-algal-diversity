@@ -63,7 +63,7 @@ dd.8sites.Y <- dd.8sites[, -1:-2] %>% as.data.frame %>% set_rownames(dd.8sites$s
 
 #### Benthic composition of functional groups differed between the TAR (represented by Datan G2) and the NTCR (represented by Shimen) ####
 d.coverage <- 
-  fread("../data/Table-S2.csv") %>% 
+  fread("../data/Table-S4.csv") %>% 
   setkey(site, season, replicate) %>% 
   .[, Others := 100 - CCA - FM - TM - ACA - Zoantharia]
 myPerm <- how(plots = Plots(d.coverage$season), nperm = 4999)

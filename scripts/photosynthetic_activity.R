@@ -30,7 +30,7 @@ sessionInfo()
 # [11] parallel_4.4.2    stats4_4.4.2      mvtnorm_1.3-1     sandwich_3.1-1    grid_4.4.2       
 # [16] compiler_4.4.2    rstudioapi_0.17.0 tools_4.4.2       MASS_7.3-61      
 
-dd <- fread("../data/Table-S6.csv", stringsAsFactors = T)
+dd <- fread("../data/Table-S8.csv", stringsAsFactors = T)
 dd %>%
   setkey(Species, SandBurialDuration, RecoveryDuration) %>%
   .[, .(p =

@@ -1,4 +1,4 @@
-## Environmental filtering drives dominance of cryptic coralline algae in a high-sedimentation reef
+## Sedimentation-driven environmental filtering drives community assembly of cryptic coralline algae
 
 ### Description
 This repository contains the data and R scripts used for the analyses and figures in Zhan et al.
@@ -29,4 +29,4 @@ This repository contains the data and R scripts used for the analyses and figure
 * vegan=2.6-8
 
 ### Citation
-Zhan SH, Huang YT, Liao CP, Liou CY, Liu SL. Environmental filtering drives dominance of cryptic coralline algae in a high-sedimentation reef. In submission.
+Zhan SH, Huang YT, Liao CP, Liou CY, Liu SL. Sedimentation-driven environmental filtering drives community assembly of cryptic coralline algae. In submission.
